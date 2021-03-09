@@ -3,7 +3,7 @@ TEMPLATE = app
 
 QT += qml network quick positioning location sql widgets
 
-CONFIG += c++14
+CONFIG += c++17
 
 ios|android {
     QT -= widgets
