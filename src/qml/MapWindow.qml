@@ -141,6 +141,7 @@ Item {
 
         copyrightsVisible: false
 
+        // 3d building
         MapParameter {
             type: "layer"
 
@@ -168,7 +169,7 @@ Item {
             property var fillExtrusionBase: { return { type: "identity", property: "min_height" } }
         }
 
-
+        // traffic
         MapParameter {
             type: "layout"
 
@@ -623,4 +624,11 @@ Item {
     RouteQuery {
         id: routeQuery
     }
+
+    RouteAddress {
+        id: routeAddress
+        z: map.z + 3
+        map_plugin: routeModel.plugin
+    }
+
 }

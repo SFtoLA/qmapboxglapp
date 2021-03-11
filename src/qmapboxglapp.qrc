@@ -10,5 +10,7 @@
         <file>qml/MapWindow.qml</file>
         <file>qml/StatusBar.qml</file>
         <file>qml/TumblerTool.qml</file>
+        <file>qml/RouteAddress.qml</file>
+        <file>qml/RouteAddressForm.ui.qml</file>
     </qresource>
 </RCC>
