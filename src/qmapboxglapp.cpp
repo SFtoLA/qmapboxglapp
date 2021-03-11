@@ -12,9 +12,6 @@
 
 int main(int argc, char *argv[])
 {
-    qputenv("QT_QUICK_CONTROLS_STYLE", "material");
-    qputenv("QT_QUICK_CONTROLS_MATERIAL_THEME", "Dark");
-    qputenv("QT_QUICK_CONTROLS_MATERIAL_ACCENT", "White");
 
 #ifdef QT_WIDGETS_LIB
     QApplication app(argc, argv);

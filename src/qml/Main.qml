@@ -11,21 +11,18 @@ import "qrc:/qml"
 ApplicationWindow {
     id: window
 
-    // Km/h
-    property var carSpeed: 50
+    property var carSpeed: 100 // Km/h
     property var navigating: true
 
-    title: "Mapbox GL for Qt 5.9"
-    width: 1024
-    height: 768
+    title: "Mapbox GL Demo"
+    width: 768
+    height: 1024
     visible: true
-    visibility: ApplicationWindow.FullScreen
 
     Item {
         anchors.centerIn: parent
-        width: parent.height
-        height: parent.width
-        rotation: -90
+        width: parent.width
+        height: parent.height
 
         StatusBar {
             id: statusBar
@@ -37,13 +34,17 @@ ApplicationWindow {
         }
 
         MapWindow {
+            id: mapWindow
+
             anchors.top: statusBar.bottom
+            anchors.bottom: bottomBar.top
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.bottom: parent.bottom
 
             z: 0
 
+            carSpeed: window.carSpeed
+            navigating: window.navigating
             traffic: bottomBar.traffic
             night: bottomBar.night
         }

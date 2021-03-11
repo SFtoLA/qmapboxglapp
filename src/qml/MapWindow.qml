@@ -7,15 +7,14 @@ import com.mapbox.cheap_ruler 1.0
 Item {
     id: mapWindow
 
-    // Km/h
-    property var carSpeed: 35
+    property var carSpeed: 35   // Km/h
     property var navigating: true
     property var traffic: true
     property var night: true
 
     states: [
         State {
-            name: ""
+            name: "preview"
             PropertyChanges { target: map; tilt: 0; bearing: 0; zoomLevel: map.zoomLevel }
         },
         State {
@@ -33,50 +32,52 @@ Item {
         }
     ]
 
-    state: navigating ? "navigating" : ""
+    state: navigating ? "navigating" : "preview"
 
-    Image {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        z: 2
-
-        source: "qrc:map-overlay-edge-gradient.png"
-    }
-
+    // qt logo
     Image {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.margins: 5
-        anchors.bottomMargin: 270
 
         z: 3
 
         source: "qrc:qt.png"
+        sourceSize.height: 40
     }
-
+    // mapbox logo
     Image {
         anchors.left: parent.left
         anchors.bottom: parent.bottom
         anchors.margins: 5
-        anchors.bottomMargin: 270
 
         z: 3
 
         source: "qrc:mapbox.png"
+        sourceSize.height: 40
     }
 
+    // turn instruction
     CustomLabel {
         id: turnInstructions
 
         anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.left: parent.left
+        anchors.right: parent.right
         anchors.margins: 20
+        anchors.leftMargin: mapWindow.navigating ? 20 : 120
         z: 3
 
         font.pixelSize: 38
+        color: mapWindow.night ? "white" : "black"
+        wrapMode: Text.WordWrap
+        horizontalAlignment: mapWindow.navigating ? Text.AlignHCenter : Text.AlignRight
     }
 
+    // car focus
     Image {
+        id: carFocus
+
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.margins: 20
@@ -115,11 +116,6 @@ Item {
             }
 
             PluginParameter {
-                name: "mapboxgl.access_token"
-                value: "pk.eyJ1IjoidG1wc2FudG9zIiwiYSI6ImNqMWVzZWthbDAwMGIyd3M3ZDR0aXl3cnkifQ.FNxMeWCZgmujeiHjl44G9Q"
-            }
-
-            PluginParameter {
                 name: "mapboxgl.mapping.additional_style_urls"
                 value: "mapbox://styles/mapbox/navigation-guidance-day-v2,mapbox://styles/mapbox/navigation-guidance-night-v2,mapbox://styles/mapbox/navigation-preview-day-v2,mapbox://styles/mapbox/navigation-preview-night-v2"
             }
@@ -146,11 +142,32 @@ Item {
         copyrightsVisible: false
 
         MapParameter {
-            type: "layout"
+            type: "layer"
 
-            property var layer: "traffic-links-tunnel-bg"
-            property var visibility: mapWindow.traffic ? "visible" : "none"
+            property var name: "3d-buildings"
+            property var source: "composite"
+            property var sourceLayer: "building"
+            property var layerType: "fill-extrusion"
+            property var minzoom: 15.0
         }
+
+        MapParameter {
+            type: "filter"
+
+            property var layer: "3d-buildings"
+            property var filter: [ "==", "extrude", "true" ]
+        }
+
+        MapParameter {
+            type: "paint"
+
+            property var layer: "3d-buildings"
+            property var fillExtrusionColor: "#00617f"
+            property var fillExtrusionOpacity: .6
+            property var fillExtrusionHeight: { return { type: "identity", property: "height" } }
+            property var fillExtrusionBase: { return { type: "identity", property: "min_height" } }
+        }
+
 
         MapParameter {
             type: "layout"
@@ -432,33 +449,6 @@ Item {
             property var visibility: mapWindow.traffic ? "visible" : "none"
         }
 
-        MapParameter {
-            type: "layer"
-
-            property var name: "3d-buildings"
-            property var source: "composite"
-            property var sourceLayer: "building"
-            property var layerType: "fill-extrusion"
-            property var minzoom: 15.0
-        }
-
-        MapParameter {
-            type: "filter"
-
-            property var layer: "3d-buildings"
-            property var filter: [ "==", "extrude", "true" ]
-        }
-
-        MapParameter {
-            type: "paint"
-
-            property var layer: "3d-buildings"
-            property var fillExtrusionColor: "#00617f"
-            property var fillExtrusionOpacity: .6
-            property var fillExtrusionHeight: { return { type: "identity", property: "height" } }
-            property var fillExtrusionBase: { return { type: "identity", property: "min_height" } }
-        }
-
         MouseArea {
             anchors.fill: parent
 
@@ -571,6 +561,7 @@ Item {
         }
 
         MapQuickItem {
+            id: carMarkerItem
             zoomLevel: map.zoomLevel
 
             sourceItem: Image {
@@ -618,7 +609,7 @@ Item {
             // Development access token, do not use in production.
             PluginParameter {
                 name: "mapbox.access_token"
-                value: "pk.eyJ1IjoicXRzZGsiLCJhIjoiY2l5azV5MHh5MDAwdTMybzBybjUzZnhxYSJ9.9rfbeqPjX2BusLRDXHCOBA"
+                value: "pk.eyJ1IjoiaGFvd3U4MHMiLCJhIjoiY2tscHZiMTRjMHJoMzJ3b2d0ZjJkankzayJ9.YC_4vDwYAP-IahGKUpSMvg"
             }
         }
 

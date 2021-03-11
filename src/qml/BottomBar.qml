@@ -8,7 +8,7 @@ Item {
     property alias traffic: trafficButton.checked
     property alias night: nightButton.checked
 
-    height: 270
+    height: 175
 
     Image {
         anchors.fill: parent
@@ -19,44 +19,26 @@ Item {
     RowLayout {
         anchors.fill: parent
 
-        TumblerTool {
-            id: tumblerLeft
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            index: 10
-            Layout.fillWidth: true
-        }
-
         ButtonTool {
             id: trafficButton
 
-            anchors.verticalCenter: parent.verticalCenter
+            height: parent.height
+            Layout.leftMargin: 20
+            Layout.alignment : Qt.AlignLeft
 
             text: "TRAFFIC"
             checked: true
         }
 
-        AirFlow {
-            anchors.verticalCenter: parent.verticalCenter
-        }
-
         ButtonTool {
             id: nightButton
 
-            anchors.verticalCenter: parent.verticalCenter
+            height: parent.height
+            Layout.rightMargin: 20
+            Layout.alignment : Qt.AlignRight
 
             text: "NIGHT"
             checked: true
-        }
-
-        TumblerTool {
-            id: tumblerRight
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            index: 5
-            Layout.fillWidth: true
         }
     }
 }

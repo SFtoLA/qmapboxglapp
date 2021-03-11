@@ -20,5 +20,6 @@ Button {
 
     background: Image {
         source: checked ? "qrc:auto-knob-down.png" : "qrc:auto-knob-up.png"
+        sourceSize.height: parent.height
     }
 }

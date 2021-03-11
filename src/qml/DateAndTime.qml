@@ -5,16 +5,10 @@ import QtQuick.Layouts 1.0
 Item {
     id: dateAndTime
 
-    width: 53 * hspan
-    height: 33 * vspan
-
-    property int hspan: 4
-    property int vspan: 1
     property var currentDate: new Date();
 
     RowLayout {
-        anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.fill : parent
         spacing: 10
 
         CustomLabel {
