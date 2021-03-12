@@ -7,10 +7,11 @@ import QtLocation 5.6
 import QtPositioning 5.5
 
 Row {
-    property var map_source
     property var route_plugin
     property alias startCoordinate: tempGeocodeModel.startCoordinate
     property alias endCoordinate: tempGeocodeModel.endCoordinate
+
+    signal startNavigation();
 
     layoutDirection: Qt.LeftToRight
     anchors.top: parent.top
@@ -111,7 +112,7 @@ Row {
                             success = 0
                             if (startCoordinate.isValid
                                     && endCoordinate.isValid)
-                                map_source.updateRoute()
+                                startNavigation()
                             else
                                 goButton.enabled = true
                         }

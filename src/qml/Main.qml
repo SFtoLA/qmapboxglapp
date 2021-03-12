@@ -12,7 +12,7 @@ ApplicationWindow {
     id: window
 
     property var carSpeed: 100 // Km/h
-    property var navigating: true
+    property var navigating: false
 
     title: "Mapbox GL Demo"
     width: 768

@@ -1,6 +1,7 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.2
+import QtQuick.Controls.Styles 1.4
 
 Item {
     property alias fromStreet: fromStreet
@@ -45,7 +46,7 @@ Item {
                 id: label1
                 text: qsTr("From")
                 font.bold: true
-                Layout.alignment: Qt.AlignHCenter
+                Layout.alignment: Qt.AlignLeft
                 Layout.columnSpan: 2
             }
 
@@ -57,6 +58,16 @@ Item {
             TextField {
                 id: fromStreet
                 Layout.fillWidth: true
+                style: TextFieldStyle {
+                    textColor: "black"
+                    background: Rectangle {
+                        radius: 4
+                        implicitWidth: 100
+                        implicitHeight: 24
+                        border.color: "#333"
+                        border.width: 1
+                    }
+                }
             }
 
             Label {
@@ -67,6 +78,16 @@ Item {
             TextField {
                 id: fromCity
                 Layout.fillWidth: true
+                style: TextFieldStyle {
+                    textColor: "black"
+                    background: Rectangle {
+                        radius: 4
+                        implicitWidth: 100
+                        implicitHeight: 24
+                        border.color: "#333"
+                        border.width: 1
+                    }
+                }
             }
 
             Label {
@@ -77,14 +98,25 @@ Item {
             TextField {
                 id: fromState
                 Layout.fillWidth: true
+                style: TextFieldStyle {
+                    textColor: "black"
+                    background: Rectangle {
+                        radius: 4
+                        implicitWidth: 100
+                        implicitHeight: 24
+                        border.color: "#333"
+                        border.width: 1
+                    }
+                }
             }
 
             Label {
                 id: label6
                 text: qsTr("To")
                 font.bold: true
-                Layout.alignment: Qt.AlignHCenter
+                Layout.alignment: Qt.AlignLeft
                 Layout.columnSpan: 2
+                Layout.topMargin: 20
             }
 
             Label {
@@ -95,6 +127,16 @@ Item {
             TextField {
                 id: toStreet
                 Layout.fillWidth: true
+                style: TextFieldStyle {
+                    textColor: "black"
+                    background: Rectangle {
+                        radius: 4
+                        implicitWidth: 100
+                        implicitHeight: 24
+                        border.color: "#333"
+                        border.width: 1
+                    }
+                }
             }
 
             Label {
@@ -105,6 +147,16 @@ Item {
             TextField {
                 id: toCity
                 Layout.fillWidth: true
+                style: TextFieldStyle {
+                    textColor: "black"
+                    background: Rectangle {
+                        radius: 4
+                        implicitWidth: 100
+                        implicitHeight: 24
+                        border.color: "#333"
+                        border.width: 1
+                    }
+                }
             }
 
             Label {
@@ -115,12 +167,24 @@ Item {
             TextField {
                 id: toState
                 Layout.fillWidth: true
+                style: TextFieldStyle {
+                    textColor: "black"
+                    background: Rectangle {
+                        radius: 4
+                        implicitWidth: 100
+                        implicitHeight: 24
+                        border.color: "#333"
+                        border.width: 1
+                    }
+                }
             }
 
             RowLayout {
                 id: rowLayout1
                 Layout.columnSpan: 2
-                Layout.alignment: Qt.AlignRight
+                Layout.alignment: Qt.AlignHCenter
+                Layout.topMargin: 20
+                spacing: 60
 
                 Button {
                     id: goButton

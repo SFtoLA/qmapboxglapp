@@ -664,6 +664,15 @@ Item {
         id: routeAddress
         z: map.z + 3
         route_plugin: routeModel.plugin
-        map_source: map
+        onStartNavigation: {
+            map.updateRoute()
+            mapWindow.navigating = true
+        }
+    }
+
+    PositionSource {
+        id: egoPosition
+        updateInterval: 1000
+        active: true
     }
 }
