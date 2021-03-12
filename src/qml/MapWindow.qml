@@ -509,14 +509,14 @@ Item {
             anchorPoint.x: greenMarker.width / 2
             anchorPoint.y: greenMarker.height / 2
 
-//            MouseArea  {
-//                drag.target: parent
-//                anchors.fill: parent
+            MouseArea  {
+                drag.target: parent
+                anchors.fill: parent
 
-//                onReleased: {
-//                    map.updateRoute();
-//                }
-//            }
+                onReleased: {
+                    map.updateRoute();
+                }
+            }
         }
 
         MapQuickItem {
@@ -531,14 +531,14 @@ Item {
             anchorPoint.x: redMarker.width / 2
             anchorPoint.y: redMarker.height / 2
 
-//            MouseArea  {
-//                drag.target: parent
-//                anchors.fill: parent
+            MouseArea  {
+                drag.target: parent
+                anchors.fill: parent
 
-//                onReleased: {
-//                    map.updateRoute();
-//                }
-//            }
+                onReleased: {
+                    map.updateRoute();
+                }
+            }
         }
 
         MapItemView {
