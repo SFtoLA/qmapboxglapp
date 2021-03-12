@@ -73,7 +73,7 @@ Row {
         height: parent.height
         width: 300
         visible: sliderToggler.checked
-        color: Qt.rgba(1, 1, 1, 0.5)
+        color: Qt.rgba(1, 1, 1, 0.75)
 
         RouteAddressForm {
             id: routeAddressForm
