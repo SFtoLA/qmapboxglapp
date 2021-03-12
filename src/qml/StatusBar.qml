@@ -18,7 +18,7 @@ Item {
         DateAndTime {
             Layout.leftMargin: 10
             Layout.bottomMargin: 15
-            Layout.alignment : Qt.AlignLeft
+            Layout.alignment: Qt.AlignLeft
         }
     }
 }

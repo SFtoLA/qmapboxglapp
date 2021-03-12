@@ -24,7 +24,7 @@ Item {
 
             height: parent.height
             Layout.leftMargin: 20
-            Layout.alignment : Qt.AlignLeft
+            Layout.alignment: Qt.AlignLeft
 
             text: "TRAFFIC"
             checked: true
@@ -35,7 +35,7 @@ Item {
 
             height: parent.height
             Layout.rightMargin: 20
-            Layout.alignment : Qt.AlignRight
+            Layout.alignment: Qt.AlignRight
 
             text: "NIGHT"
             checked: true

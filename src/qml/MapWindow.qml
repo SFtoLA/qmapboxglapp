@@ -7,7 +7,7 @@ import com.mapbox.cheap_ruler 1.0
 Item {
     id: mapWindow
 
-    property var carSpeed: 35   // Km/h
+    property var carSpeed: 35 // Km/h
     property var navigating: true
     property var traffic: true
     property var night: true
@@ -15,20 +15,42 @@ Item {
     states: [
         State {
             name: "preview"
-            PropertyChanges { target: map; tilt: 0; bearing: 0; zoomLevel: map.zoomLevel }
+            PropertyChanges {
+                target: map
+                tilt: 0
+                bearing: 0
+                zoomLevel: map.zoomLevel
+            }
         },
         State {
             name: "navigating"
-            PropertyChanges { target: map; tilt: 60; zoomLevel: 20 }
+            PropertyChanges {
+                target: map
+                tilt: 60
+                zoomLevel: 20
+            }
         }
     ]
 
     transitions: [
         Transition {
             to: "*"
-            RotationAnimation { target: map; property: "bearing"; duration: 100; direction: RotationAnimation.Shortest }
-            NumberAnimation { target: map; property: "zoomLevel"; duration: 100 }
-            NumberAnimation { target: map; property: "tilt"; duration: 100 }
+            RotationAnimation {
+                target: map
+                property: "bearing"
+                duration: 100
+                direction: RotationAnimation.Shortest
+            }
+            NumberAnimation {
+                target: map
+                property: "zoomLevel"
+                duration: 100
+            }
+            NumberAnimation {
+                target: map
+                property: "tilt"
+                duration: 100
+            }
         }
     ]
 
@@ -122,15 +144,15 @@ Item {
         }
 
         activeMapType: {
-            var style;
+            var style
 
             if (mapWindow.navigating) {
-                style = night ? supportedMapTypes[1] : supportedMapTypes[0];
+                style = night ? supportedMapTypes[1] : supportedMapTypes[0]
             } else {
-                style = night ? supportedMapTypes[3] : supportedMapTypes[2];
+                style = night ? supportedMapTypes[3] : supportedMapTypes[2]
             }
 
-            return style;
+            return style
         }
 
         center: mapWindow.navigating ? ruler.currentPosition : map.center
@@ -156,7 +178,7 @@ Item {
             type: "filter"
 
             property var layer: "3d-buildings"
-            property var filter: [ "==", "extrude", "true" ]
+            property var filter: ["==", "extrude", "true"]
         }
 
         MapParameter {
@@ -165,8 +187,18 @@ Item {
             property var layer: "3d-buildings"
             property var fillExtrusionColor: "#00617f"
             property var fillExtrusionOpacity: .6
-            property var fillExtrusionHeight: { return { type: "identity", property: "height" } }
-            property var fillExtrusionBase: { return { type: "identity", property: "min_height" } }
+            property var fillExtrusionHeight: {
+                return {
+                    "type": "identity",
+                    "property": "height"
+                }
+            }
+            property var fillExtrusionBase: {
+                return {
+                    "type": "identity",
+                    "property": "min_height"
+                }
+            }
         }
 
         // traffic
@@ -478,23 +510,23 @@ Item {
 
         Location {
             id: previousLocation
-            coordinate: QtPositioning.coordinate(0, 0);
+            coordinate: QtPositioning.coordinate(0, 0)
         }
 
         onCenterChanged: {
             if (previousLocation.coordinate == center || !mapWindow.navigating)
-                return;
+                return
 
-            bearingAnimation.to = previousLocation.coordinate.azimuthTo(center);
-            bearingAnimation.start();
+            bearingAnimation.to = previousLocation.coordinate.azimuthTo(center)
+            bearingAnimation.start()
 
-            previousLocation.coordinate = center;
+            previousLocation.coordinate = center
         }
 
         function updateRoute() {
-            routeQuery.clearWaypoints();
-            routeQuery.addWaypoint(startMarker.coordinate);
-            routeQuery.addWaypoint(endMarker.coordinate);
+            routeQuery.clearWaypoints()
+            routeQuery.addWaypoint(startMarker.coordinate)
+            routeQuery.addWaypoint(endMarker.coordinate)
         }
 
         MapQuickItem {
@@ -505,16 +537,16 @@ Item {
                 source: "qrc:///marker-green.png"
             }
 
-            coordinate : routeAddress.startCoordinate
+            coordinate: routeAddress.startCoordinate
             anchorPoint.x: greenMarker.width / 2
             anchorPoint.y: greenMarker.height / 2
 
-            MouseArea  {
+            MouseArea {
                 drag.target: parent
                 anchors.fill: parent
 
                 onReleased: {
-                    map.updateRoute();
+                    map.updateRoute()
                 }
             }
         }
@@ -527,16 +559,16 @@ Item {
                 source: "qrc:///marker-red.png"
             }
 
-            coordinate : routeAddress.endCoordinate
+            coordinate: routeAddress.endCoordinate
             anchorPoint.x: redMarker.width / 2
             anchorPoint.y: redMarker.height / 2
 
-            MouseArea  {
+            MouseArea {
                 drag.target: parent
                 anchors.fill: parent
 
                 onReleased: {
-                    map.updateRoute();
+                    map.updateRoute()
                 }
             }
         }
@@ -551,12 +583,12 @@ Item {
                 opacity: (index == 0) ? 1.0 : 0.3
 
                 onRouteChanged: {
-                    ruler.path = routeData.path;
-                    ruler.currentDistance = 0;
+                    ruler.path = routeData.path
+                    ruler.currentDistance = 0
 
-                    currentDistanceAnimation.stop();
-                    currentDistanceAnimation.to = ruler.distance;
-                    currentDistanceAnimation.start();
+                    currentDistanceAnimation.stop()
+                    currentDistanceAnimation.to = ruler.distance
+                    currentDistanceAnimation.start()
                 }
             }
         }
@@ -586,14 +618,17 @@ Item {
             }
 
             onCurrentDistanceChanged: {
-                var total = 0;
-                var i = 0;
+                var total = 0
+                var i = 0
 
                 // XXX: Use car speed in meters to pre-warn the turn instruction
-                while (total - mapWindow.carSpeed < ruler.currentDistance * 1000 && i < routeModel.get(0).segments.length)
-                    total += routeModel.get(0).segments[i++].maneuver.distanceToNextInstruction;
+                while (total - mapWindow.carSpeed < ruler.currentDistance * 1000
+                       && i < routeModel.get(0).segments.length)
+                    total += routeModel.get(
+                                0).segments[i++].maneuver.distanceToNextInstruction
 
-                turnInstructions.text = routeModel.get(0).segments[i - 1].maneuver.instructionText;
+                turnInstructions.text = routeModel.get(
+                            0).segments[i - 1].maneuver.instructionText
             }
         }
     }
@@ -616,7 +651,7 @@ Item {
 
         Component.onCompleted: {
             if (map) {
-                map.updateRoute();
+                map.updateRoute()
             }
         }
     }
@@ -631,5 +666,4 @@ Item {
         route_plugin: routeModel.plugin
         map_source: map
     }
-
 }

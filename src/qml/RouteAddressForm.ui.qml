@@ -46,7 +46,7 @@ Item {
                 text: qsTr("From")
                 font.bold: true
                 Layout.alignment: Qt.AlignHCenter
-                Layout.columnSpan : 2
+                Layout.columnSpan: 2
             }
 
             Label {
@@ -134,8 +134,8 @@ Item {
             }
 
             Item {
-                    Layout.fillHeight: true
-                    Layout.columnSpan: 2
+                Layout.fillHeight: true
+                Layout.columnSpan: 2
             }
         }
     }

@@ -5,10 +5,10 @@ import QtQuick.Layouts 1.0
 Item {
     id: dateAndTime
 
-    property var currentDate: new Date();
+    property var currentDate: new Date()
 
     RowLayout {
-        anchors.fill : parent
+        anchors.fill: parent
         spacing: 10
 
         CustomLabel {
@@ -36,7 +36,7 @@ Item {
         repeat: true
 
         onTriggered: {
-            dateAndTime.currentDate = new Date();
+            dateAndTime.currentDate = new Date()
         }
     }
 }

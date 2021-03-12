@@ -24,7 +24,7 @@ Item {
             snapMode: ListView.SnapToItem
             highlightRangeMode: ListView.StrictlyEnforceRange
             preferredHighlightBegin: height / 2 - (height / tumbler.visibleItemCount / 2)
-            preferredHighlightEnd: height / 2  + (height / tumbler.visibleItemCount / 2)
+            preferredHighlightEnd: height / 2 + (height / tumbler.visibleItemCount / 2)
             clip: true
         }
 
@@ -37,7 +37,9 @@ Item {
             color: "#ffffff"
 
             Behavior on scale {
-                NumberAnimation { duration: 200 }
+                NumberAnimation {
+                    duration: 200
+                }
             }
         }
     }
