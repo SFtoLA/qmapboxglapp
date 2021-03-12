@@ -505,18 +505,18 @@ Item {
                 source: "qrc:///marker-green.png"
             }
 
-            coordinate : QtPositioning.coordinate(37.7881955, -122.4003401)
+            coordinate : routeAddress.startCoordinate
             anchorPoint.x: greenMarker.width / 2
             anchorPoint.y: greenMarker.height / 2
 
-            MouseArea  {
-                drag.target: parent
-                anchors.fill: parent
+//            MouseArea  {
+//                drag.target: parent
+//                anchors.fill: parent
 
-                onReleased: {
-                    map.updateRoute();
-                }
-            }
+//                onReleased: {
+//                    map.updateRoute();
+//                }
+//            }
         }
 
         MapQuickItem {
@@ -527,18 +527,18 @@ Item {
                 source: "qrc:///marker-red.png"
             }
 
-            coordinate : QtPositioning.coordinate(37.326323, -121.8923447)
+            coordinate : routeAddress.endCoordinate
             anchorPoint.x: redMarker.width / 2
             anchorPoint.y: redMarker.height / 2
 
-            MouseArea  {
-                drag.target: parent
-                anchors.fill: parent
+//            MouseArea  {
+//                drag.target: parent
+//                anchors.fill: parent
 
-                onReleased: {
-                    map.updateRoute();
-                }
-            }
+//                onReleased: {
+//                    map.updateRoute();
+//                }
+//            }
         }
 
         MapItemView {
@@ -628,7 +628,8 @@ Item {
     RouteAddress {
         id: routeAddress
         z: map.z + 3
-        map_plugin: routeModel.plugin
+        route_plugin: routeModel.plugin
+        map_source: map
     }
 
 }

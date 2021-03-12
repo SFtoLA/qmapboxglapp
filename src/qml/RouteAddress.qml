@@ -7,7 +7,8 @@ import QtLocation 5.6
 import QtPositioning 5.5
 
 Row {
-    property var map_plugin
+    property var map_source
+    property var route_plugin
     property alias startCoordinate: tempGeocodeModel.startCoordinate
     property alias endCoordinate: tempGeocodeModel.endCoordinate
 
@@ -69,16 +70,12 @@ Row {
     Rectangle {
         id: sliderContainer
         height: parent.height
-        width: 450
+        width: 300
         visible: sliderToggler.checked
         color: Qt.rgba(1, 1, 1, 0.5)
 
         RouteAddressForm {
             id: routeAddressForm
-
-            signal showMessage(string topic, string message)
-            signal showRoute(variant startCoordinate, variant endCoordinate)
-            signal closeForm
 
             anchors.fill: parent
 
@@ -89,7 +86,7 @@ Row {
                 property variant startCoordinate
                 property variant endCoordinate
 
-                plugin: map_plugin
+                plugin: route_plugin
 
                 onCountChanged: {
                     if (success == 1 && count == 1) {
@@ -114,7 +111,7 @@ Row {
                             success = 0
                             if (startCoordinate.isValid
                                     && endCoordinate.isValid)
-                                showRoute(startCoordinate, endCoordinate)
+                                map_source.updateRoute()
                             else
                                 goButton.enabled = true
                         }
@@ -123,81 +120,63 @@ Row {
                         var st = (success == 0) ? "start" : "end"
                         success = 0
                         if ((status == GeocodeModel.Ready) && (count == 0)) {
-                            showMessage(qsTr("Geocode Error"),
-                                        qsTr("Unsuccessful geocode"))
                             goButton.enabled = true
                         } else if (status == GeocodeModel.Error) {
-                            showMessage(qsTr("Geocode Error"),
-                                        qsTr("Unable to find location for the")
-                                        + " " + st + " " + qsTr("point"))
                             goButton.enabled = true
                         } else if ((status == GeocodeModel.Ready)
                                    && (count > 1)) {
-                            showMessage(qsTr("Ambiguous geocode"),
-                                        count + " " + qsTr(
-                                            "results found for the") + " " + st + " " + qsTr(
-                                            "point, please specify location"))
                             goButton.enabled = true
                         }
                     }
-                    console.log(startCoordinate)
-                    console.log(endCoordinate)
                 }
             }
 
             goButton.onClicked: {
                 tempGeocodeModel.reset()
-                fromAddress.country = fromCountry.text
+                fromAddress.state = fromState.text
                 fromAddress.street = fromStreet.text
                 fromAddress.city = fromCity.text
-                toAddress.country = toCountry.text
+                toAddress.state = toState.text
                 toAddress.street = toStreet.text
                 toAddress.city = toCity.text
                 tempGeocodeModel.startCoordinate = QtPositioning.coordinate()
                 tempGeocodeModel.endCoordinate = QtPositioning.coordinate()
                 tempGeocodeModel.query = fromAddress
                 tempGeocodeModel.update()
-                goButton.enabled = false
+                sliderToggler.checked = false
             }
 
             clearButton.onClicked: {
                 fromStreet.text = ""
                 fromCity.text = ""
-                fromCountry.text = ""
+                fromState.text = ""
                 toStreet.text = ""
                 toCity.text = ""
-                toCountry.text = ""
-            }
-
-            cancelButton.onClicked: {
-                closeForm()
+                toState.text = ""
             }
 
             Component.onCompleted: {
                 fromStreet.text = fromAddress.street
                 fromCity.text = fromAddress.city
-                fromCountry.text = fromAddress.country
+                fromState.text = fromAddress.state
                 toStreet.text = toAddress.street
                 toCity.text = toAddress.city
-                toCountry.text = toAddress.country
+                toState.text = toAddress.state
             }
         }
     }
 
     Address {
-        id: toAddress
-        street: "Holmenkollveien 140"
-        city: "Oslo"
-        country: "Norway"
-        postalCode: "0791"
+        id: fromAddress
+        street: "76 2nd St"
+        city: "San Francisco"
+        state: "CA"
     }
 
     Address {
-        id: fromAddress
-        street: "Holmenkollveien 140"
-        city: "Oslo"
-        country: "Norway"
-        postalCode: "0791"
+        id: toAddress
+        street: "180 Woz Way"
+        city: "San Jose"
+        state: "CA"
     }
-
 }

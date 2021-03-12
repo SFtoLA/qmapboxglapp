@@ -4,14 +4,13 @@ import QtQuick.Layouts 1.2
 
 Item {
     property alias fromStreet: fromStreet
-    property alias fromCountry: fromCountry
+    property alias fromState: fromState
     property alias toStreet: toStreet
     property alias toCity: toCity
-    property alias toCountry: toCountry
+    property alias toState: toState
     property alias fromCity: fromCity
     property alias goButton: goButton
     property alias clearButton: clearButton
-    property alias cancelButton: cancelButton
 
     Rectangle {
         id: tabRectangle
@@ -29,7 +28,7 @@ Item {
         anchors.rightMargin: 20
         anchors.leftMargin: 20
         anchors.bottomMargin: 20
-        anchors.topMargin: 100
+        anchors.topMargin: 75
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
@@ -72,11 +71,11 @@ Item {
 
             Label {
                 id: label7
-                text: qsTr("Country")
+                text: qsTr("State")
             }
 
             TextField {
-                id: fromCountry
+                id: fromState
                 Layout.fillWidth: true
             }
 
@@ -110,11 +109,11 @@ Item {
 
             Label {
                 id: label8
-                text: qsTr("Country")
+                text: qsTr("State")
             }
 
             TextField {
-                id: toCountry
+                id: toState
                 Layout.fillWidth: true
             }
 
@@ -131,11 +130,6 @@ Item {
                 Button {
                     id: clearButton
                     text: qsTr("Clear")
-                }
-
-                Button {
-                    id: cancelButton
-                    text: qsTr("Cancel")
                 }
             }
 
